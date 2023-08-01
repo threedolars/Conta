@@ -1,3 +1,6 @@
+# Tarefa: adicionar pais de origem do usuario (pais)
+# para fazer o registro de created_date no pais do usuario
+
 # Django #
 *.log
 *.pot

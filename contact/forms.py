@@ -6,29 +6,18 @@ from django.core.exceptions import ValidationError
 
 
 class ContactForm(forms.ModelForm):
-    first_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'classe-a classe-b',
-                'placeholder': 'Aqui veio do init'
-            }
-        ),
-        label='Primeiro Nome',
-        help_text='Write your name here'
-    )
+    picture = forms.ImageField(widget=forms.FileInput(
+        attrs={'accept': 'image/*'}), help_text='Put a image here', required=False)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    # self.fields['first_name'].widget.attrs.update({
+    #     'class': 'classe-a classe-b',
+    #     'placeholder': 'Aqui veio do init',
+    # })
 
-        # self.fields['first_name'].widget.attrs.update({
-        #     'class': 'classe-a classe-b',
-        #     'placeholder': 'Aqui veio do init',
-        # })
-
-    class Meta():
+    class Meta:
         model = Contact
         fields = ('first_name', 'last_name', 'phone',
-                  'email', 'description', 'category')
+                  'email', 'description', 'category', 'picture',)
 
         # widgets = {
         #     'first_name': forms.TextInput(
@@ -40,7 +29,6 @@ class ContactForm(forms.ModelForm):
         # }
 
     def clean(self):
-        msg = None
         cleaned_data = self.cleaned_data
         first_name = cleaned_data.get('first_name')
         last_name = cleaned_data.get('last_name')
@@ -51,8 +39,8 @@ class ContactForm(forms.ModelForm):
                 code='Invalid'
             )
 
-        self.add_error('first_name', msg)
-        self.add_error('last_name', msg)
+            self.add_error('first_name', msg)
+            self.add_error('last_name', msg)
 
         return super().clean()
 

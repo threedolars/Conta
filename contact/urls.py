@@ -7,5 +7,7 @@ urlpatterns = [
     path('contact/<int:contact_id>/', views.contact, name='contact'),
     path('search/', views.search, name='search'),
     path('', views.index, name='index'),
-    path('contact/create/', views.create, name='create')
+    path('contact/create/', views.create, name='create'),
+    path('contact/<int:contact_id>/update/', views.update, name='update'),
+    path('contact/<int:contact_id>/delete/', views.delete, name='delete')
 ]
